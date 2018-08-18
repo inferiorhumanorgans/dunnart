@@ -1,0 +1,100 @@
+#!/usr/bin/env node
+
+/*
+    This file is part of dunnart.
+
+    dunnart is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    dunnart is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with dunnart.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+'use strict';
+
+const TTYData = require('../lib/ttydata');
+const PNGRender = require('../lib/png');
+const GIFRender = require('../lib/gif');
+
+const ARGV = require('yargs')
+    .option('font', {
+        alias: 'f',
+        type: 'string',
+        requiresArg: true
+    })
+    .option('start', {
+        alias: 's',
+        type: 'number',
+        requiresArg: true
+    })
+    .option('end', {
+        alias: 'e',
+        type: 'number',
+        requiresArg: true
+    })
+    .option('font-size', {
+        alias: 'z',
+        type: 'number',
+        requiresArg: true
+    })
+    .option('char-spacing', {
+        alias: 'k',
+        type: 'number',
+        requiresArg: true
+    })
+    .option('input', {
+        alias: 'i',
+        type: 'string',
+        requiresArg: true
+    })
+    .option('output', {
+        alias: 'o',
+        type: 'string',
+        requiresArg: true
+    })
+    .option('type', {
+        alias: 't',
+        type: 'string',
+        requiresArg: true
+    })
+    .choices('type', ['gif', 'png'])
+    .option('help', {
+        alias: 'h'
+    })
+    .demandOption('font')
+    .demandOption('input')
+    .demandOption('output')
+    .demandOption('type')
+    .default('s', 0)
+    .default('e', -1)
+    .default('z', 20.0)
+    .default('k', 0)
+    .argv
+
+let tty = new TTYData(ARGV.input, ARGV);
+let renderer;
+
+switch (ARGV.type) {
+    case 'gif': {
+        renderer = new GIFRender(tty);
+        break;
+    }
+    case 'png': {
+        console.log("Making an APNG")
+        renderer = new PNGRender(tty);
+        break;
+    }
+    default: {
+        console.log(`Unknown output type ${ARGV.type}, exiting.`);
+        process.exit(-1);
+    }
+}
+
+renderer.renderFile(ARGV.output);
