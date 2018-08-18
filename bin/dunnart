@@ -87,7 +87,6 @@ switch (ARGV.type) {
         break;
     }
     case 'png': {
-        console.log("Making an APNG")
         renderer = new PNGRender(tty);
         break;
     }
