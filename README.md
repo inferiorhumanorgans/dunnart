@@ -32,7 +32,9 @@ $ dunnart --font SourceCodePro-Light.otf --type=gif --input ttystudio.frames.jso
 ## Notes
 Kerning has proven to be a bit vexxing.  Some fonts, like [Adobe's Source Code Pro](https://github.com/adobe-fonts/source-code-pro) render just fine with no futzing.  Others, like [Fira Code](https://github.com/tonsky/FiraCode), need a bit of width taken in.  This negative kerning can be adjusted via the `char-spacing` option.  The units are font units, which are typically 1/1000th of an EM.
 
-Emoji are not currently supported, this is a limitation of opentype.js ([#193](https://github.com/nodebox/opentype.js/issues/193), [#297](https://github.com/nodebox/opentype.js/pulls/297)).
+Emoji are not fully supported for a couple reasons.
+  * SVG color fonts are not supported by opentype.js ([#193](https://github.com/nodebox/opentype.js/issues/193), [#297](https://github.com/nodebox/opentype.js/pulls/297)).
+  * Multi-byte characters (surrogates) are not supported by blessed [#353](https://github.com/chjj/blessed/issues/353).
 
 ## What is a dunnart?
 dunnart, n., any number of furry narrow-footed marsupials the size of a mouse found in the genus Sminthopsis. They are mainly insectivorous. A male dunnart's Y chromosome is the smallest known mammalian Y chromosome.
