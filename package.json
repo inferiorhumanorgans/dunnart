@@ -1,6 +1,6 @@
 {
   "name": "dunnart",
-  "version": "1.0.1",
+  "version": "1.0.2-pre",
   "description": "OpenType enabled ttystudio renderer.",
   "license": "GPL-3.0-or-later",
   "bin": "bin/dunnart",
