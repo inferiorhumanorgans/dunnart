@@ -32,6 +32,14 @@ $ dunnart --font SourceCodePro-Light.otf --type=gif --input ttystudio.frames.jso
 ## Notes
 Kerning has proven to be a bit vexxing.  Some fonts, like [Adobe's Source Code Pro](https://github.com/adobe-fonts/source-code-pro) render just fine with no futzing.  Others, like [Fira Code](https://github.com/tonsky/FiraCode), need a bit of width taken in.  This negative kerning can be adjusted via the `char-spacing` option.  The units are font units, which are typically 1/1000th of an EM.
 
+The `font` argument can be specified multiple times to allow for font substitution.  [Emoji One](https://github.com/eosrei/emojione-color-font)  and [Noto Symbol](https://en.wikipedia.org/wiki/Noto_fonts) provide good coverage and are freely available.  For example:
+
+``` bash
+$ dunnart -f fonts/SourceCodePro-Light.otf -f fonts/NotoSansSymbols-Light.ttf -f fonts/NotoSansSymbols2-Regular.ttf -f fonts/EmojiOneColor-SVGinOT-OSX.ttf -t png -i demo.json -o demo.png
+```
+
+The `end` argument indicates the last frame from the input to be rendered.  Use a value of -1 to render through to the end of the file.
+
 Emoji are not fully supported for a couple reasons.
   * SVG color fonts are not supported by opentype.js ([#193](https://github.com/nodebox/opentype.js/issues/193), [#297](https://github.com/nodebox/opentype.js/pulls/297)).
   * Multi-byte characters (surrogates) are not supported by blessed [#353](https://github.com/chjj/blessed/issues/353).
